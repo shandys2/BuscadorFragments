@@ -26,16 +26,10 @@ public class WebFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-    public static WebFragment newInstance() {
-        WebFragment fragment = new WebFragment();
-
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -54,6 +48,8 @@ public class WebFragment extends Fragment {
         });
         webview.getSettings().setJavaScriptEnabled(true);
 
+        Bundle bundle = this.getArguments();
+         url= bundle.getString("url");
 
         webview.loadUrl(url);
         return  view;
