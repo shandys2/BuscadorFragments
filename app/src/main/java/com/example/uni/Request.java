@@ -72,8 +72,6 @@ public class Request {
                                 Log.i("Nombre " , u.getName());
                             }
 
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -92,9 +90,5 @@ public class Request {
                 });
 
         Volley.newRequestQueue(context).add(postRequest);
-
-
     }
-
-
 }

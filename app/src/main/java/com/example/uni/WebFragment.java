@@ -11,11 +11,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WebFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class WebFragment extends Fragment {
 
 
@@ -29,8 +24,6 @@ public class WebFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override

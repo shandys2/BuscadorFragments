@@ -25,6 +25,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A fragment representing a list of Items.
@@ -41,9 +42,11 @@ public class ItemFragment extends Fragment {
     String nombre="";
     String url;
     static FragmentManager fm;
+    List<Universidad> uList;
 
-    public ItemFragment(Context context) {
+    public ItemFragment(Context context ) {
         this.context=context;
+
     }
 
     @Override
@@ -71,8 +74,39 @@ public class ItemFragment extends Fragment {
             nombre = bundle.getString("nombre");
         }
 
+        AsyncTaskRunner asyncTask = new AsyncTaskRunner(context,fm,view);
+        try {
+             uList= asyncTask.execute(pais,nombre).get();  // EJECUTAMOS EL ASYNTASK Y RECOGEMOS LA LISTA
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        // Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(uList,fm));
+        }
+
+
+     /*   Bundle bundle = new Bundle();
+        bundle.putString("pais", pais);
+        bundle.putString("nombre", nombre);
+        ItemFragment fragment = new ItemFragment(context);
+        fragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
+        Log.i("json",forecastJsonStr);
+*/
+        return view;
+
         //ponemos un contador a falta de hacerla sincrona la peticion
-        new CountDownTimer(800, 800) {
+    /*    new CountDownTimer(800, 800) {
             @Override
             public void onTick(long l) {
                 try {
@@ -92,11 +126,9 @@ public class ItemFragment extends Fragment {
                     lista.add(new Universidad("No hay resultados"));
                 }
 
-
                 for (Universidad u : lista) {
                     Log.i("MAIN", u.getName());
                 }
-
 
                 // Set the adapter
                 if (view instanceof RecyclerView) {
@@ -110,8 +142,7 @@ public class ItemFragment extends Fragment {
                     recyclerView.setAdapter(new MyItemRecyclerViewAdapter(lista,fm));
                 }
             }
-        }.start();
-        return view;
+        }.start();*/
 
     }
 }

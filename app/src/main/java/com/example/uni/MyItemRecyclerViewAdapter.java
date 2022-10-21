@@ -31,7 +31,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public MyItemRecyclerViewAdapter(List<Universidad> items ,FragmentManager frM) {
         mValues = items;
         fm=frM;
-
     }
 
     @Override
@@ -62,8 +61,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     fragmentTransaction.replace(R.id.frameLayout, webFragment);
                     fragmentTransaction.commit();
                 }
-
-
             }
         });
     }
@@ -75,13 +72,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView mIdView;
-        //public final TextView mContentView;
         public Universidad mItem;
 
         public ViewHolder(FragmentItemBinding binding) {
             super(binding.getRoot());
             mIdView = binding.itemName;
-          //  mContentView = binding.content;
+
         }
 
         @Override
