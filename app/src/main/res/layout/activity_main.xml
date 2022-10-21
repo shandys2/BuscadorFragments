@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -36,8 +36,8 @@
         android:id="@+id/textViewName"
         android:layout_width="171dp"
         android:layout_height="45dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:gravity="center_horizontal"
         android:inputType="textPersonName"
@@ -50,7 +50,7 @@
         android:layout_width="170dp"
         android:layout_height="46dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="36dp"
         android:ems="10"
         android:gravity="center_horizontal"
         android:inputType="textPersonName"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.164" />
 
     <Button
         android:id="@+id/botonAtras"
@@ -75,8 +75,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="151dp"
-        android:layout_height="35dp"
+        android:layout_width="163dp"
+        android:layout_height="43dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:background="#CDF4A0"
@@ -84,22 +84,22 @@
         android:text="PAIS"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toStartOf="@+id/textViewPais"
-        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintHorizontal_bias="0.829"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.164" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="153dp"
-        android:layout_height="32dp"
+        android:layout_width="160dp"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="20dp"
         android:background="#CCB9EF"
         android:gravity="center_horizontal|center_vertical"
         android:text="NOMBRE"
         app:layout_constraintEnd_toStartOf="@+id/textViewName"
-        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintHorizontal_bias="0.785"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

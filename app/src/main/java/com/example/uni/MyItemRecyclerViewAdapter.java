@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uni.placeholder.PlaceholderContent.PlaceholderItem;
@@ -27,10 +28,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private final List<Universidad> mValues;
     private WebView webview;
     FragmentManager fm;
+    Button botonAtras;
 
-    public MyItemRecyclerViewAdapter(List<Universidad> items ,FragmentManager frM) {
+    public MyItemRecyclerViewAdapter(List<Universidad> items ,FragmentManager frM, Button boton) {
         mValues = items;
         fm=frM;
+        this.botonAtras=boton;
     }
 
     @Override
@@ -60,6 +63,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frameLayout, webFragment);
                     fragmentTransaction.commit();
+                    botonAtras.setVisibility(View.VISIBLE);
                 }
             }
         });

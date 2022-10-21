@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         botonBuscar = findViewById(R.id.botonBuscar);
         botonAtras = findViewById(R.id.botonAtras);
+        botonAtras.setVisibility(View.GONE);
 
         botonBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putString("nombre", nombre);
 
 
-                ItemFragment fragment =new ItemFragment(context);
+                ItemFragment fragment =new ItemFragment(context,botonAtras);
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -76,12 +77,13 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putString("pais", sharedPreferences.getString("pais",""));
                 bundle.putString("nombre", sharedPreferences.getString("name",""));
-                ItemFragment fragment =new ItemFragment(context);
+                ItemFragment fragment =new ItemFragment(context,botonAtras);
                 fragment.setArguments(bundle);
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameLayout, fragment);
                 fragmentTransaction.commit();
+                botonAtras.setVisibility(View.GONE);
 
             }
         });

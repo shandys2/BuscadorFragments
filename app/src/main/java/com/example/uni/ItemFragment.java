@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.uni.placeholder.PlaceholderContent;
@@ -43,10 +44,10 @@ public class ItemFragment extends Fragment {
     String url;
     static FragmentManager fm;
     List<Universidad> uList;
-
-    public ItemFragment(Context context ) {
+     Button botonAtras;
+    public ItemFragment(Context context , Button boton) {
         this.context=context;
-
+        this.botonAtras=boton;
     }
 
     @Override
@@ -83,66 +84,15 @@ public class ItemFragment extends Fragment {
             e.printStackTrace();
         }
 
-
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(uList,fm));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(uList,fm,botonAtras));
         }
 
-
-     /*   Bundle bundle = new Bundle();
-        bundle.putString("pais", pais);
-        bundle.putString("nombre", nombre);
-        ItemFragment fragment = new ItemFragment(context);
-        fragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
-        Log.i("json",forecastJsonStr);
-*/
         return view;
-
-        //ponemos un contador a falta de hacerla sincrona la peticion
-    /*    new CountDownTimer(800, 800) {
-            @Override
-            public void onTick(long l) {
-                try {
-                    r.nuevaBusqueda(pais , nombre);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            public void onFinish() {
-
-                List<Universidad> lista = r.getListaUniversidades();
-
-                if (lista == null || lista.size() == 0) {
-                    lista = new ArrayList<>();
-                    lista.add(new Universidad("No hay resultados"));
-                }
-
-                for (Universidad u : lista) {
-                    Log.i("MAIN", u.getName());
-                }
-
-                // Set the adapter
-                if (view instanceof RecyclerView) {
-                    Context context = view.getContext();
-                    RecyclerView recyclerView = (RecyclerView) view;
-                    if (mColumnCount <= 1) {
-                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    } else {
-                        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-                    }
-                    recyclerView.setAdapter(new MyItemRecyclerViewAdapter(lista,fm));
-                }
-            }
-        }.start();*/
 
     }
 }
