@@ -26,14 +26,14 @@ import java.util.List;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Universidad> mValues;
-    private WebView webview;
-    FragmentManager fm;
-    Button botonAtras;
+    FragmentManager fragmentManage;
+    Button botonAtras,botonBuscar;
 
-    public MyItemRecyclerViewAdapter(List<Universidad> items ,FragmentManager frM, Button boton) {
+    public MyItemRecyclerViewAdapter(List<Universidad> items ,FragmentManager fragmentManager, Button botonAtras,Button botonBuscar) {
         mValues = items;
-        fm=frM;
-        this.botonAtras=boton;
+        this.fragmentManage=fragmentManager;
+        this.botonAtras=botonAtras;
+        this.botonBuscar=botonBuscar;
     }
 
     @Override
@@ -47,23 +47,24 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getName());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            holder.mIdView.setTooltipText(mValues.get(position).getWebPage());
+            holder.mIdView.setTooltipText(mValues.get(position).getWebPage()); //guardamos la url en el tooltipText del elemento
         }
         holder.mIdView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+            //Al hacer clik en un elemento de la lista es cuando se activa esta funcion
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Log.i("RecliclerViewAdapter", (String) v.getTooltipText());
                     Bundle bundle = new Bundle();
-                    bundle.putString("url",(String) v.getTooltipText());
+                    bundle.putString("url",(String) v.getTooltipText()); // le pasamos al webfragment la url que hemos guardado en el tooltipText del elemento previamente
                     WebFragment webFragment= new WebFragment();
                     webFragment.setArguments(bundle);
 
-                    FragmentManager fragmentManager = fm;
+                    FragmentManager fragmentManager = fragmentManage;
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frameLayout, webFragment);
                     fragmentTransaction.commit();
                     botonAtras.setVisibility(View.VISIBLE);
+                    botonBuscar.setVisibility(View.GONE);
                 }
             }
         });

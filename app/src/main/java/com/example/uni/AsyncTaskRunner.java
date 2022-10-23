@@ -47,20 +47,20 @@ public class AsyncTaskRunner extends AsyncTask<String, Void, List<Universidad>> 
         BufferedReader reader = null;
         String forecastJsonStr = null;
         StringBuffer buffer;
+        //Recogemos los parametros
         this.pais=params[0];
         this.nombre=params[1];
 
         try {
-
-            URL url = new URL("http://universities.hipolabs.com/search?country="+ params[0]+"&name="+params[1]+"");
-
+            //Hacemos la peticion con los parametros que nbos pasan
+            URL url = new URL("http://universities.hipolabs.com/search?country="+pais+"&name="+nombre+"");
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-
             InputStream inputStream = urlConnection.getInputStream();
-             buffer = new StringBuffer();
+            buffer = new StringBuffer();
+            //Si no nos devuelve nada salimos
             if (inputStream == null) {
                 return null;
             }
@@ -68,21 +68,21 @@ public class AsyncTaskRunner extends AsyncTask<String, Void, List<Universidad>> 
 
             String line;
             while ((line = reader.readLine()) != null) {
-                buffer.append(line + "\n");
+                buffer.append(line + "\n"); // salida por consola con salto de linea  mientras haya más registros
             }
 
             if (buffer.length() == 0) {
                 return null;
             }
             forecastJsonStr = buffer.toString();
-         ////////////////////////////////////////////////
-
-
 
             lista= new ArrayList<Universidad>(){};
+
             try {
+                //Transformamos la repuesta a JSON array
                 JSONArray jsonArray = new JSONArray(forecastJsonStr);
                 for (int i = 0; i <jsonArray.length() ; i++) {
+                    //Convertimos la respuesta primero a objetos JSON y despues formamos el objeto Universidad para agragarlo a la lista
                     try {
                         JSONObject jsonObject = new JSONObject(jsonArray.getString(i));
                         Universidad universidad = new Universidad();
@@ -102,23 +102,16 @@ public class AsyncTaskRunner extends AsyncTask<String, Void, List<Universidad>> 
                         e.printStackTrace();
                     }
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-
-
-            /////////////////////////////////////////
-
 
         } catch (IOException e) {
             Log.e("PlaceholderFragment", "Error ", e);
 
             return null;
         } finally{
-
-
+            //Cerramos conexiones
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
@@ -130,7 +123,6 @@ public class AsyncTaskRunner extends AsyncTask<String, Void, List<Universidad>> 
                 }
             }
         }
-
     return lista;
     }
 

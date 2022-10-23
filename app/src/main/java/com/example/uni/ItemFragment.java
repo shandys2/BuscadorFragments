@@ -38,27 +38,23 @@ public class ItemFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     static Context context;
-    Request r ;
     String pais="";
     String nombre="";
-    String url;
     static FragmentManager fm;
     List<Universidad> uList;
-     Button botonAtras;
-    public ItemFragment(Context context , Button boton) {
+     Button botonAtras,botonBuscar;
+
+    public ItemFragment(Context context , Button botonAtras, Button botonBuscar) {
+
         this.context=context;
-        this.botonAtras=boton;
+        this.botonAtras=botonAtras;
+        this.botonBuscar=botonBuscar;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fm= getParentFragmentManager();
-        try {
-            r = Request.getInstance(context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -77,6 +73,7 @@ public class ItemFragment extends Fragment {
 
         AsyncTaskRunner asyncTask = new AsyncTaskRunner(context,fm,view);
         try {
+
              uList= asyncTask.execute(pais,nombre).get();  // EJECUTAMOS EL ASYNTASK Y RECOGEMOS LA LISTA
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -89,7 +86,7 @@ public class ItemFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new GridLayoutManager(context, 1));
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(uList,fm,botonAtras));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(uList,fm,botonAtras,botonBuscar));
         }
 
         return view;
